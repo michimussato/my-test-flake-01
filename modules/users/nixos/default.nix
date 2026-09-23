@@ -9,7 +9,7 @@ in
   flake = {
 
     meta.users = {
-      henry = {
+      nixos = {
         email = "nixos@etik.com";
         name = "Nixos Sandbox User";
         username = "${username}";

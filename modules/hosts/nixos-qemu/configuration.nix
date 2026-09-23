@@ -12,6 +12,7 @@
       self.nixosModules.hardware-nixos-qemu
       (self.modules.nixos.nixos)
       (self.modules.nixos.michael)
+      # (self.modules.nixos.root)
       # Modules starting with _ are ignored by
       # import-tree, so they could be traditionally
       # referenced by their file names
