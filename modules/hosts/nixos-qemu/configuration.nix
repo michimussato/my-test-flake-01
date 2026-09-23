@@ -9,14 +9,18 @@
   {
 
     imports = [
+      # Hardware
       self.nixosModules.hardware-nixos-qemu
+      # System
+      (self.modules.nixos.ssh)
+      (self.modules.nixos.xserver)
+      (self.modules.nixos.kde-plasma)
+      (self.modules.nixos.localization)
+      (self.modules.nixos.system-packages)
+      # Users
       (self.modules.nixos.nixos)
       (self.modules.nixos.michael)
       # (self.modules.nixos.root)
-      # Modules starting with _ are ignored by
-      # import-tree, so they could be traditionally
-      # referenced by their file names
-      # ./_hardware-configuration.nix
     ];
 
     boot.loader.grub.enable = true;
@@ -28,29 +32,7 @@
     networking.hostName = "nixos-qemu";
     networking.networkmanager.enable = true;
 
-#    services.xserver.enable = true;
 
-    # Configure keymap in X11
-    services.xserver.xkb = {
-      layout = "us";
-      variant = "";
-    };
-
-    # Set your time zone.
-    time.timeZone = "Europe/Zurich";
-
-    # Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
-
-    # Enable the KDE Plasma Desktop Environment.
-    # - https://forum.manjaro.org/t/cant-change-background-of-sddm/144466
-    # - https://discourse.nixos.org/t/sddm-background-on-default-theme/46263
-#    services.displayManager.sddm = {
-#      enable = true;
-#      autoNumlock = true;
-#      theme = "breeze";
-#    };
-#    services.desktopManager.plasma6.enable = true;
 
     nix.settings.experimental-features = [
       "nix-command"
@@ -69,30 +51,6 @@
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
-
-    # List packages installed in system profile.
-    # You can use https://search.nixos.org/ to find more packages (and options).
-    environment.systemPackages = with pkgs; [
-    #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #   wget
-      git
-      tree
-      dnsutils
-      htop
-      btop
-      lshw
-      rsnapshot
-      rclone
-      gparted
-      ffmpeg
-      # qemu_full  # causes errors
-      docker
-      podman
-      podman-compose
-      podman-tui
-      devenv
-      # nvidia-container-toolkit
-    ];
 
     # Create basic default directories:
     # - https://www.man7.org/linux/man-pages/man5/tmpfiles.d.5.html
@@ -117,18 +75,7 @@
       ];
     };
 
-    # Enable the OpenSSH daemon.
-    services.openssh = {
-      enable = true;
-      ports = [ 22 ];
-      settings.PermitRootLogin = "yes";
-      settings.PasswordAuthentication = true;
-    };
-
-    system = {
-      # inherit stateVersion;
-      stateVersion = "26.05";
-    };
+    system.stateVersion = "26.05";
 
   };
 
