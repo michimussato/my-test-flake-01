@@ -41,6 +41,7 @@
 
     # https://github.com/hercules-ci/flake-parts
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     # https://github.com/denful/import-tree
     import-tree.url = "github:denful/import-tree/main";
 
