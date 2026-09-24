@@ -7,6 +7,9 @@
 
   {
 
+  # Todo
+  # - [ ] enable automatic GC; potentially in settings-module
+
   flake.nixosModules."${hostName}-module" = { pkgs, ... }: {
 
     imports = [

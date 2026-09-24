@@ -12,6 +12,8 @@
   imports = [
     inputs.flake-parts.flakeModules.modules
     inputs.home-manager.flakeModules.home-manager
+    # plasma-manager is not working yet
+    # inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   config.systems = [
