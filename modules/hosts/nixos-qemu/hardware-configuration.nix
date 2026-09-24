@@ -3,7 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 { self, inputs, ... }: {
 
-  flake.nixosModules.hardware-nixos-qemu = { config, lib, pkgs, modulesPath, ... }: {
+  flake.nixosModules.nixos-qemu-hardware = { config, lib, pkgs, modulesPath, ... }: {
     imports =
       [
         (modulesPath + "/profiles/qemu-guest.nix")

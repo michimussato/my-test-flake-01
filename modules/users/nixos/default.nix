@@ -16,12 +16,12 @@ in
       };
     };
 
-    modules.nixos."${username}" = { pkgs, ... }:
+    nixosModules.nixos-qemu-module = { pkgs, ... }:
 
     {
-      imports = with inputs.self.modules.nixos; [
-        # developmentEnvironment
-      ];
+#      imports = with inputs.self.modules.nixos; [
+#        # developmentEnvironment
+#      ];
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
       users.users."${username}" = {

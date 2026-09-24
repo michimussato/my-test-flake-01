@@ -1,28 +1,14 @@
 { self, inputs, ... }: {
 
-  flake.nixosModules.nixos-qemu = { pkgs, lib, ...  }:
+  flake.nixosModules.nixos-qemu-module = { pkgs, ... }:
 
   let
     stateVersion = "26.05";
   in
 
   {
-
     imports = [
-      # Hardware
-      self.nixosModules.hardware-nixos-qemu
-      # System
-      (self.modules.nixos.systemd)
-      (self.modules.nixos.settings)
-      (self.modules.nixos.ssh)
-      (self.modules.nixos.xserver)
-      (self.modules.nixos.kde-plasma)
-      (self.modules.nixos.localization)
-      (self.modules.nixos.system-packages)
-      # Users
-      (self.modules.nixos.nixos)
-      (self.modules.nixos.michael)
-      # (self.modules.nixos.root)
+      self.nixosModules.nixos-qemu-hardware
     ];
 
     boot.loader.grub.enable = true;

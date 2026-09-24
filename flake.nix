@@ -49,7 +49,7 @@
     # wrapper-modules.url = "github:nix-community/nix-wrapper-modules";
 
 #    ags.url = "github:Aylur/ags";
-    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+#    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 #    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 #    nix-webapps.url = "github:TLATER/nix-webapps";
 #    nixpkgs.url = "github:/nixos/nixpkgs/nixos-unstable";
@@ -60,9 +60,7 @@
 #    systems.url = "github:nix-systems/default/main";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake
-  {inherit inputs;}
-  (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
 #  {
 #    imports = [
 #      inputs.import-tree ./hosts
@@ -73,8 +71,8 @@
 #  (inputs.import-tree ./users)
   # inputs.home-manager.flakeModules.home-manager
   # Use this with caution:
-  nixConfig = {
-    experimental-features = ["nix-command" "flakes"];
-    allow-unfree = true;
-  };
+#  nixConfig = {
+#    experimental-features = ["nix-command" "flakes"];
+#    allow-unfree = true;
+#  };
 }
