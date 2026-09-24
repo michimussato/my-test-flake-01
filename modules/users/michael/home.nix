@@ -26,6 +26,13 @@ in
     imports = [
       self.homeModules."${username}-packages-module"
       self.homeModules."${username}-programs-module"
+      self.homeModules."${username}-activation-module"
+      # This needs manual installation:
+      #   nix-channel --add https://github.com/nix-community/home-manager/archive/release-26.05.tar.gz home-manager
+      #   nix-channel --add https://github.com/nix-community/plasma-manager/archive/trunk.tar.gz plasma-manager
+      #   nix-channel --update
+      #   nix-shell '<home-manager>' -A install
+      # ./_plasma.nix
     ];
 
     home.packages = [ pkgs.hello ];
