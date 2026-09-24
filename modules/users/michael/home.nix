@@ -2,12 +2,6 @@
 
 let
   username = "michael";
-  shellAliases = {
-    gs = "git status";
-    ".." = "cd ..";
-    ls = "ls -alh";
-  };
-  # home-dir = "$HOME";
 in
 
 {
@@ -28,10 +22,11 @@ in
   # This is your home.nix, your module where you configure home-manager
   # It's imported both in standalone configuration above, and in your nixos configuration
   flake.homeModules."${username}-module" = { pkgs, ... }: {
-    programs.bash = {
-      enable = true;
-      inherit shellAliases;
-    };
+
+    imports = [
+      self.homeModules."${username}-packages-module"
+      self.homeModules."${username}-programs-module"
+    ];
 
     home.packages = [ pkgs.hello ];
     home.stateVersion = "26.05";

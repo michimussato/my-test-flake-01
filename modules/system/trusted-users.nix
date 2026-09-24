@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.trusted-users = { pkgs, ... }:
+    nixosModules.trusted-users-module = { pkgs, ... }:
 
     {
 
@@ -17,7 +17,7 @@
   #    nix.settings.trusted-users = [
   #      "root"
   #      "nixos"
-  #      # "michael"
+  #      "michael"
   #    ];
 
     };

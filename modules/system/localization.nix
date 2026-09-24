@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.localization = { pkgs, ... }:
+    nixosModules.localization-module = { pkgs, ... }:
 
     {
 

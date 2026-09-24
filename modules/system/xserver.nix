@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.xserver = { pkgs, ... }:
+    nixosModules.xserver-module = { pkgs, ... }:
 
     {
 

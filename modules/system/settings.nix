@@ -10,8 +10,18 @@
 
     {
 
-      # Allow unfree packages
-      nixpkgs.config.allowUnfree = true;
+      nixpkgs = {
+        config = {
+          # Allow unfree packages
+          allowUnfree = true;
+          allowUnfreePredicate = (_: true);
+          permittedInsecurePackages = [
+            # deps for djv
+            "openexr-2.5.10"
+            "ilmbase-2.5.10"
+          ];
+        };
+      };
 
       nix.settings.experimental-features = [
         "nix-command"

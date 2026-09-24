@@ -13,6 +13,12 @@
       self.nixosModules."${hostName}-hardware"
       self.nixosModules.settings-module
       self.nixosModules.system-packages-module
+      self.nixosModules.openssh-service-module
+      self.nixosModules.systemd-module
+      self.nixosModules.openssh-service-module
+      self.nixosModules.localization-module
+      self.nixosModules.xserver-module
+      self.nixosModules.kde-plasma-module
     ];
 
     boot.loader.grub.enable = true;
@@ -23,20 +29,6 @@
 
     networking.hostName = "${hostName}";
     networking.networkmanager.enable = true;
-
-    environment.systemPackages = [
-      pkgs.vim
-      pkgs.firefox
-      pkgs.tree
-    ];
-
-    # Enable the OpenSSH daemon.
-    services.openssh = {
-      enable = true;
-      ports = [ 22 ];
-      settings.PermitRootLogin = "no";
-      settings.PasswordAuthentication = false;
-    };
 
     system.stateVersion = "${stateVersion}";
 

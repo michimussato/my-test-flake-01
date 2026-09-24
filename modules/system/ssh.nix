@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.ssh = { pkgs, ... }:
+    nixosModules.openssh-service-module = { pkgs, ... }:
 
     {
       # Enable the OpenSSH daemon.

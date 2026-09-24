@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.kde-plasma = { pkgs, ... }:
+    nixosModules.kde-plasma-module = { pkgs, ... }:
 
     {
 
