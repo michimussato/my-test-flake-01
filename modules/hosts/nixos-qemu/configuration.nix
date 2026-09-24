@@ -20,6 +20,20 @@
     networking.hostName = "nixos-qemu";
     networking.networkmanager.enable = true;
 
+    environment.systemPackages = [
+      pkgs.vim
+      pkgs.firefox
+      pkgs.tree
+    ];
+
+    # Enable the OpenSSH daemon.
+    services.openssh = {
+      enable = true;
+      ports = [ 22 ];
+      settings.PermitRootLogin = "no";
+      settings.PasswordAuthentication = false;
+    };
+
     system.stateVersion = "${stateVersion}";
 
   };

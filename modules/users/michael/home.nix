@@ -1,7 +1,7 @@
 { self, inputs, ... }:
 
 let
-  username = "nixos";
+  username = "michael";
 in
 
 {
@@ -24,11 +24,7 @@ in
   flake.homeModules."${username}-module" = { pkgs, ... }: {
     programs.bash.enable = true;
     programs.bash.shellAliases.ll = "ls -l";
-    programs.bash.shellAliases.la = "ls -alh";
-    programs.bash.shellAliases.tri = "tree .";
-
-    programs.fish.enable = true;
-    programs.zsh.enable = true;
+    programs.bash.shellAliases.al = "ls -alh";
 
     home.packages = [ pkgs.hello ];
     home.stateVersion = "26.05";
