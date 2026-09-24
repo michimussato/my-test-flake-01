@@ -2,23 +2,16 @@
 
 let
   username = "nixos";
+  host = "nixos-qemu";
 in
 
 {
 
-  flake = {
+    flake.nixosModules."${host}-module" = {
 
-    meta.users = {
-      nixos = {
-        email = "nixos@etik.com";
-        name = "Nixos Sandbox User";
-        username = "${username}";
-      };
-    };
+    home-manager.users."${username}" = self.homeModules."${username}-module";
 
-    nixosModules.nixos-qemu-module.home-manager.users."${username}" = self.homeModules."${username}-module";
-
-    nixosModules.nixos-qemu-module.users.users."${username}" = { pkgs, ... }:
+    users.users."${username}" = { pkgs, ... }:
 
 #      imports = with inputs.self.modules.nixos; [
 #        # developmentEnvironment

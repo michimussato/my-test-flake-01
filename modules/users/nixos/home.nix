@@ -2,32 +2,42 @@
 
 let
   username = "nixos";
+  shellAliases = {
+    gs = "git status";
+    ".." = "cd ..";
+    ls = "ls -alh";
+  };
+  # home-dir = "$HOME";
 in
 
 {
 
   # This is your standalone home-manager configuration, meant to be used on non-nixos machines
   # with the home-manager command
-  flake.homeConfigurations.nixos = inputs.home-manager.lib.homeManagerConfiguration {
+  flake.homeConfigurations."${username}" = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
     modules = [
       self.homeModules."${username}-module"
-      {
-        home.username = "${username}";
-        home.homeDirectory = "/home/${username}";
-      }
+      # {
+      #   home.username = "${username}";
+      #   home.homeDirectory = "/home/${username}";
+      # }
     ];
   };
 
   # This is your home.nix, your module where you configure home-manager
   # It's imported both in standalone configuration above, and in your nixos configuration
   flake.homeModules."${username}-module" = { pkgs, ... }: {
-    programs.bash.enable = true;
-    programs.bash.shellAliases.ll = "ls -l";
-    programs.bash.shellAliases.la = "ls -alh";
-    programs.bash.shellAliases.tri = "tree .";
+    programs.bash = {
+      enable = true;
+      inherit shellAliases;
+    };
 
-    programs.fish.enable = true;
+    programs.fish = {
+      enable = true;
+      inherit shellAliases;
+    };
+
     programs.zsh.enable = true;
 
     home.packages = [ pkgs.hello ];
