@@ -48,6 +48,13 @@
     # # https://github.com/nix-community/nix-wrapper-modules
     # wrapper-modules.url = "github:nix-community/nix-wrapper-modules";
 
+    # Development
+
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 #    ags.url = "github:Aylur/ags";
 #    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
 #    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
@@ -60,7 +67,7 @@
 #    systems.url = "github:nix-systems/default/main";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 #  {
 #    imports = [
 #      inputs.import-tree ./hosts

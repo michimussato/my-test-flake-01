@@ -12,14 +12,15 @@
   imports = [
     inputs.flake-parts.flakeModules.modules
     inputs.home-manager.flakeModules.home-manager
+#    inputs.devshell.flakeModule
     # plasma-manager is not working yet
     # inputs.plasma-manager.homeModules.plasma-manager
   ];
 
   config.systems = [
     "x86_64-linux"
-    "aarch64-linux"
-    "x86_64-darwin"
-    "aarch64-darwin"
+#    "aarch64-linux"
+#    "x86_64-darwin"
+#    "aarch64-darwin"
   ];
 }
