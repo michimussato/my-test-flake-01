@@ -1,14 +1,18 @@
-{ self, inputs, ... }: {
-
-  flake.nixosModules.nixos-qemu-module = { pkgs, ... }:
+{ self, inputs, ... }:
 
   let
     stateVersion = "26.05";
+    hostName = "nixos-qemu";
   in
 
   {
+
+  flake.nixosModules."${hostName}-module" = { pkgs, ... }: {
+
     imports = [
-      self.nixosModules.nixos-qemu-hardware
+      self.nixosModules."${hostName}-hardware"
+      self.nixosModules.settings-module
+      self.nixosModules.system-packages-module
     ];
 
     boot.loader.grub.enable = true;
@@ -17,7 +21,7 @@
 
     boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    networking.hostName = "nixos-qemu";
+    networking.hostName = "${hostName}";
     networking.networkmanager.enable = true;
 
     environment.systemPackages = [

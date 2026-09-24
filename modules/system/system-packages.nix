@@ -6,7 +6,7 @@
 
   flake = {
 
-    modules.nixos.system-packages = { pkgs, ... }:
+    nixosModules.system-packages-module = { pkgs, ... }:
 
     {
 
