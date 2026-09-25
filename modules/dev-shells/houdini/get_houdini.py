@@ -1,9 +1,17 @@
 # Download with Python (based on [paulwinex/houdini_install_script](https://github.com/paulwinex/houdini_install_script/blob/master/houdini_install.py):
+#
+# nix-shell -p python313 python313Packages.tqdm python313Packages.requests
+# python3 get_houdini.py --username "" --password "" --id-number "" --destination-dir ""
+#
+# Todo:
+#  - [x] currently downloads to where the script lives. add dest dir.
+#
 import sys, os, argparse
 import getpass
 from tqdm import tqdm
 import requests
 from email.message import Message
+import pathlib
 
 
 # VARIABLES ################################
@@ -11,14 +19,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-u", "--username", type=str, help="SideFx account username")
 parser.add_argument("-p", "--password", type=str, help="SideFx account password")
 parser.add_argument("-id", "--id-number", type=int, help="SideFx Houdini Version ID")
+parser.add_argument("-d", "--destination-dir", type=pathlib.Path, help="Destination Directory")
 
 _args, other_args = parser.parse_known_args()
 username = _args.username
 password = _args.password
 id_number = _args.id_number
-if not all([username, password, id_number]):
-    print('Please set username and password and id')
-    print('Example: -u username -p password -id id')
+destination_dir = _args.destination_dir
+if not all([username, password, id_number, destination_dir]):
+    print('Please set username and password and id and destination-dir')
+    print('Example: -u username -p password -id id -d destination_dir')
     sys.exit()
 
 ############################################################# START #############
@@ -55,7 +65,10 @@ if not h_filename:
     # Fallback to filename (plain ASCII)
     h_filename = msg.get_param('filename', failobj=None, header='content-type')
 
-with open(h_filename, 'wb') as file, tqdm(
+p = destination_dir.joinpath(h_filename).expanduser().resolve()
+p.parent.mkdir(parents=True, exist_ok=True)
+
+with open(p, 'wb') as file, tqdm(
         desc=h_filename,
         total=total,
         unit='iB',
@@ -65,3 +78,5 @@ with open(h_filename, 'wb') as file, tqdm(
     for data in h_file.iter_content(chunk_size=1024):
         size = file.write(data)
         bar.update(size)
+
+print(f"File written to {p.as_posix()}")
